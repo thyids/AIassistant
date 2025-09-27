@@ -447,7 +447,7 @@ if __name__ == "__main__":
     conf = ConfigParser()
 
     # 读取INI文件
-    conf.read('settings.ini')
+    conf.read('settings.ini', encoding='utf-8')
 
     # 读取某个section下的变量值
     OpenrouterKey = conf['Key']['OpenrouterKey']
@@ -473,3 +473,4 @@ if __name__ == "__main__":
     Lbl = tk.Label(room, textvariable=var)
     Btn.grid(row=0, column=0)
     room.mainloop()
+
