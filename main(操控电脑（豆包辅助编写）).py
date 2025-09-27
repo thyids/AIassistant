@@ -493,7 +493,7 @@ if __name__ == "__main__":
     messages = []
     # 读取配置文件
     conf = ConfigParser()
-    conf.read('settings.ini')
+    conf.read('settings.ini', encoding='utf-8')
     OpenrouterKey = conf['Key']['OpenrRuterKey']
     ZhipuKey = conf['Key']['ZhiPuKey']
     DeepseekKey = conf['Key']['DeepseekKey']
@@ -521,4 +521,5 @@ if __name__ == "__main__":
     # 启动主循环
     room.mainloop()
     run1 = 0  # 停止子线程
+
     exit()
