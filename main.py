@@ -187,12 +187,12 @@ def if_image(prompt):
             },
             json={
                 # deepseek/deepseek-r1-0528:free
-                # qwen/qwen3-235b-a22b:free
-                "model": "qwen/qwen3-235b-a22b:free",
+                # tencent/hunyuan-a13b-instruct:free
+                "model": "z-ai/glm-4.5-air:free",
                 "messages": [{"role": "system", "content": tsc}, {"role": "user", "content": prompt}]
             },
             proxies=proxies)
-        # print(response.json()['choices'][0]['message']['content'].strip())
+        print(response.json()['choices'][0]['message']['content'].strip())
         printf("提示词已生成.")
         return response.json()['choices'][0]['message']['content'].strip()
         # ['choices'][0]['message']['content'].strip()
@@ -210,7 +210,7 @@ def xz_speak(user_input: str) -> str:
     try:
         client = ZhipuAI(api_key=ZhipuKey)  # 填写您自己的APIKey
         response = client.chat.completions.create(
-            model="glm-4.5-flash",  # 填写需要调用的模型名称
+            model="glm-z1-flash",  # 填写需要调用的模型名称
             messages=xz_list
         )
         # print(response.choices[0].message.content)
@@ -321,7 +321,7 @@ def del_search(prompt):
                 "X-Title": "AI_assistant"
             },
             json={
-                "model": "qwen/qwen3-235b-a22b:free",
+                "model": "microsoft/mai-ds-r1:free",
                 # "plugins": [{"id": "web"}],
                 "stream": True,
                 "messages": [{"role": "system", "content": tsc}, {"role": "user", "content": prompt}]
@@ -358,6 +358,7 @@ def del_search(prompt):
                 except Exception:
                     break
         try:
+            print(content_ans.split("</think>"))
             content_ans = content_ans.split("</think>")[1]
         except Exception as e:
             print(e)
@@ -456,7 +457,7 @@ if __name__ == "__main__":
     sc = f"""你是专注于**语音识别文本修正**的工具，仅对用户提供的“语音识别文本”执行修正操作，严格遵守以下规则，禁止回应任何提问、解释自身功能或添加无关内容：
 1. **错字/误词修正**：精准修正语音识别中的错别字、混淆词（例：用户输入“什么是变成”，输出“什么是编程？”）；
 2. **标点补充**：按语义逻辑添加必要标点（逗号、句号、问号等），不堆砌冗余符号；
-3. **重点词汇强校验**：优先检测“{name}”“退出”“再见”，修正语音误听（例：“你嘿{name}”→“你好，{name}”）；
+3. **重点词汇强校验**：优先检测“{name}”“退出”“再见”，修正语音误听（例：“你嘿{name}”→“你好，{name}”，“再接”→“再见”）；
 4. **技术词汇保护**：用户为个人开发者，涉及Python、Java、API、代码、函数等技术相关词汇时，严禁误改，完整保留；
 5. **冗余内容剔除**：删除无意义语气词（额、嘿、哦等）、重复字符及无关信息，不保留多余内容。
 
@@ -473,4 +474,3 @@ if __name__ == "__main__":
     Lbl = tk.Label(room, textvariable=var)
     Btn.grid(row=0, column=0)
     room.mainloop()
-
