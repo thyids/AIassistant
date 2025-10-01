@@ -210,7 +210,7 @@ def xz_speak(user_input: str) -> str:
     try:
         client = ZhipuAI(api_key=ZhipuKey)  # 填写您自己的APIKey
         response = client.chat.completions.create(
-            model="glm-z1-flash",  # 填写需要调用的模型名称
+            model="glm-4.5-flash",  # 填写需要调用的模型名称
             messages=xz_list
         )
         # print(response.choices[0].message.content)
@@ -235,6 +235,7 @@ def speak(text):
 
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
+
     speakpath = loop.run_until_complete(main())
 
     # 播放音频文件
@@ -391,7 +392,7 @@ def chat_with_gpt(prompt):
                 # qwen/qwen3-235b-a22b:free
                 # qwen/qwen3-coder:free
                 # google/gemini-2.0-flash-exp:free
-                "model": "qwen/qwen3-coder:free",
+                "model": "deepseek/deepseek-chat-v3.1:free",
                 "plugins": [{"id": "web"}],
                 "messages": messages
             },
@@ -425,10 +426,10 @@ def main():
                 user_input = listen()
                 if user_input == "":
                     continue
-                if "退出" in user_input or "再见" in user_input:
-                    printf("好的，再见！")
-                    speak("好的，再见！")
-                    break
+                # if "退出" in user_input or "再见" in user_input:
+                #     printf("好的，再见！")
+                #     speak("好的，再见！")
+                #     break
                 pyautogui.screenshot(os.getcwd() + 'output.png')
                 tsc = if_image(user_input)
                 if tsc != "无":
